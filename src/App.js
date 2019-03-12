@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react";
 //import DomainResults from "./components/DomainResults"
-import SearchField from "./components/SearchField"
-import 'emoji-mart/css/emoji-mart.css'
-import { Picker } from 'emoji-mart'
-import posed from 'react-pose'
+import SearchField from "./components/SearchField";
+import "emoji-mart/css/emoji-mart.css";
+import { Picker } from "emoji-mart";
+import posed from "react-pose";
 
 const EmojiContainer = posed.div({
   visible: {
     y: 0,
     opacity: 1,
-    delay: 300,
+    delay: 10,
     transition: {
-      y: { type: 'spring', stiffness: 1000, damping: 15 },
+      y: { type: "spring", stiffness: 1000, damping: 15 },
       default: { duration: 300 }
     }
   },
@@ -20,8 +20,7 @@ const EmojiContainer = posed.div({
     opacity: 0,
     transition: { duration: 150 }
   }
-})
-
+});
 
 const App = () => {
   const domainEndings = [
@@ -35,25 +34,23 @@ const App = () => {
     ".st",
     ".fm",
     ".je"
-  ]
+  ];
 
-  const [domainString, setDomainString] = useState("🤑")
-  const [domainsArray, setDomainsArray] = useState([])
-  const [lookedUpDomainsArray, setLookedUpDomainsArray] = useState([])
-  //const [loading, setLoading] = useState(false)
-  const [expanded, setExpanded] = useState(false)
+  const [domainString, setDomainString] = useState("🤑");
+  const [domainsArray, setDomainsArray] = useState([]);
+  const [lookedUpDomainsArray, setLookedUpDomainsArray] = useState([]);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
-    document.title = domainString
-  })
-
+    document.title = domainString;
+  });
 
   const handleDomainChange = event => {
-    setDomainString(event.target.value)
+    setDomainString(event.target.value);
     setDomainsArray(
       domainEndings.map(ending => event.target.value.trim() + ending)
-    )
-  }
+    );
+  };
 
   const runDomainLookup = fullUrl => {
     return fetch(
@@ -72,19 +69,19 @@ const App = () => {
   };
 
   const handleSubmit = e => {
-    e.preventDefault()
-    setLookedUpDomainsArray([])
-    domainsArray.map(b => runDomainLookup(b))
-  }
+    e.preventDefault();
+    setLookedUpDomainsArray([]);
+    domainsArray.map(b => runDomainLookup(b));
+  };
 
   const buttonHandleSubmit = e => {
-    setLookedUpDomainsArray([])
-    domainsArray.map(b => runDomainLookup(b))
-  }
+    setLookedUpDomainsArray([]);
+    domainsArray.map(b => runDomainLookup(b));
+  };
 
   const inputEl = React.useRef(null);
 
-  const onButtonClick = (event) => {
+  const onButtonClick = event => {
     inputEl.current.focus();
   };
 
@@ -95,43 +92,70 @@ const App = () => {
           ref={inputEl}
           value={domainString}
           onChange={event => {
-            handleDomainChange(event)
+            handleDomainChange(event);
           }}
         />
-        
-
       </form>
-      <button 
-          onClick={(event) => {
-            setExpanded(!expanded)
-            onButtonClick(event)
+      <button
+        onClick={event => {
+          setExpanded(!expanded);
+          onButtonClick(event);
+        }}
+      >
+        Select Emoji
+      </button>
+      <button
+        onClick={() => {
+          buttonHandleSubmit();
+          if (expanded) {
+            setExpanded(!expanded);
+          }
+        }}
+      >
+        Search
+      </button>
+      <EmojiContainer
+        style={{ position: "absolute" }}
+        pose={expanded ? "visible" : "hidden"}
+      >
+        <Picker
+          set="emojione"
+          onSelect={e => {
+            const start = inputEl.current.selectionStart;
+            const end = inputEl.current.selectionEnd;
+            //const result = domainString.substring(0, start) + e.native + domainString.substring(end, domainString.length)
+
+            setDomainString(
+              prevString =>
+                prevString.substring(0, start) +
+                e.native +
+                prevString.substring(end, prevString.length)
+            );
+
+            setDomainsArray(
+              domainEndings.map(
+                ending =>
+                  domainString.substring(0, start) +
+                  e.native +
+                  domainString.substring(end, domainString.length) +
+                  ending
+              )
+            );
+
+            inputEl.current.focus();
+            // the line below doesn't work!
+            // inputEl.current.setSelectionRange(start + e.native.length, end + e.native.length)
+
+            //this one does, but is not good practice..
+            setTimeout(
+              () =>
+                inputEl.current.setSelectionRange(
+                  start + e.native.length,
+                  end + e.native.length
+                ),
+              10
+            );
           }}
-        >
-          Select Emoji
-        </button>
-        <button 
-          onClick={buttonHandleSubmit}
-        >
-          Search
-        </button>
-      <EmojiContainer style={{position: "absolute"}} pose={expanded ? 'visible' : 'hidden'}>
-        <Picker 
-          set='emojione'
-          onSelect={
-            e => {
-              const start = inputEl.current.selectionStart
-              const end = inputEl.current.selectionEnd
-              //const result = domainString.substring(0, start) + e.native + domainString.substring(end, domainString.length)
-
-              setDomainString(prevString => prevString.substring(0,start) + e.native + prevString.substring(end, prevString.length))
-
-              setDomainsArray(domainEndings.map(ending => domainString.substring(0,start) + e.native + domainString.substring(end,domainString.length) + ending))
-
-              inputEl.current.focus()
-              setTimeout(() => inputEl.current.setSelectionRange(start + e.native.length, end + e.native.length), 10)
-            }
-            
-          } 
         />
       </EmojiContainer>
       {lookedUpDomainsArray &&
@@ -143,7 +167,7 @@ const App = () => {
           );
         })}
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
