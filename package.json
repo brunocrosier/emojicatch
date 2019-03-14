@@ -4,9 +4,11 @@
   "private": true,
   "dependencies": {
     "babel-runtime": "6.26.0",
+    "bulma": "^0.7.4",
     "emoji-mart": "^2.9.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-onclickoutside": "^6.8.0",
     "react-pose": "^4.0.8",
     "react-scripts": "2.1.8",
     "styled-components": "^4.1.3"
