@@ -1,84 +1,18 @@
 import React, { useState, useEffect } from "react"
-//import DomainResults from "./components/DomainResults"
 import SearchField from "./components/SearchField"
 import "emoji-mart/css/emoji-mart.css"
 import { Picker } from "emoji-mart"
-import posed from "react-pose"
-import styled from "styled-components"
-
-const GridStyled = styled.div`
-  background: linear-gradient(30deg, #914dad, #b59bdb);
-  min-height: 100vh;
-  display: grid;
-  padding: 0vw 4vw;
-  grid-template-columns: [main] 1fr;
-  grid-template-rows: [top] 30vh [domainresults] 1fr;
-`
-
-const Header = styled.div`
-  display: grid;
-  grid-template-columns: [input] 1fr [searchbutton] 20vw;
-  grid-template-rows: [h1] 1fr [toggle] 40px 1fr;
-`
-
-const ToggleEmoji = styled.p`
-  text-align: right;
-  grid-row-start: toggle;
-  a {
-    color: white;
-  }
-`
-
-const SubmitButton = styled.button`
-  height: 70px;
-  border: 0px;
-  background: #ff72bf;
-  color: white;
-  font-size: 40px;
-  font-weight: 700;
-  border-radius: 0px 50px 50px 0px;
-`
-
-const EmojiContainer = posed.div({
-  visible: {
-    y: 0,
-    opacity: 1,
-    delay: 0,
-    transition: {
-      y: { type: "spring", stiffness: 1000, damping: 15 },
-      default: { duration: 100 }
-    },
-    applyAtStart: { display: "block" }
-  },
-  hidden: {
-    y: 50,
-    opacity: 0,
-    transition: { duration: 150 },
-    applyAtEnd: { display: "none" }
-  }
-})
-
-const SingleDomain = styled.div`
-  border-radius: 20px;
-  background: white;
-  padding: 10px 20px;
-  margin: 10px;
-  height: max-content;
-`
+import OutsideClickHandler from "react-outside-click-handler"
+import ToggleEmoji from "./components/ToggleEmoji"
+import GridStyled from "./components/GridStyled"
+import Header from "./components/Header"
+import SubmitButton from "./components/SubmitButton"
+import EmojiContainer from "./components/EmojiContainer"
+import SingleDomain from "./components/SingleDomain"
+import Title from "./components/Title"
 
 const App = () => {
-  const domainEndings = [
-    ".ws",
-    ".ga",
-    ".cf",
-    ".tk",
-    ".ml",
-    ".gq",
-    ".kz",
-    ".st",
-    ".fm",
-    ".je"
-  ]
+  const domainEndings = [".ws", ".ga", ".cf", ".tk", ".ml", ".gq", ".st", ".fm"]
 
   const [domainString, setDomainString] = useState("")
   const [domainsArray, setDomainsArray] = useState([])
@@ -129,33 +63,67 @@ const App = () => {
     inputEl.current.focus()
   }
 
+  const onPickerSelect = e => {
+    const start = inputEl.current.selectionStart
+    const end = inputEl.current.selectionEnd
+
+    setDomainString(
+      prevString =>
+        prevString.substring(0, start) +
+        e.native +
+        prevString.substring(end, prevString.length)
+    )
+
+    setDomainsArray(
+      domainEndings.map(
+        ending =>
+          domainString.substring(0, start) +
+          e.native +
+          domainString.substring(end, domainString.length) +
+          ending
+      )
+    )
+
+    inputEl.current.focus()
+
+    setTimeout(
+      () =>
+        inputEl.current.setSelectionRange(
+          start + e.native.length,
+          end + e.native.length
+        ),
+      10
+    )
+  }
+
   return (
     <GridStyled>
       <Header>
-        <h1
-          style={{
-            color: "white",
-            gridRowStart: "h1",
-            textAlign: "center",
-            gridColumnStart: "input",
-            gridColumnEnd: 3
+        <Title
+          onClick={() => {
+            setDomainString("")
+            setDomainsArray([])
+            setLookedUpDomainsArray([])
           }}
         >
           Emoji Domain Search
-        </h1>
+        </Title>
         <ToggleEmoji
           onClick={event => {
             setExpanded(!expanded)
             onButtonClick(event)
           }}
         >
-          <a href="#">Select Emoji</a>
+          Open Emoji Picker
         </ToggleEmoji>
-        <form style={{ gridColumnStart: "input" }} onSubmit={handleSubmit}>
+        <form
+          style={{ outline: "transparent", gridColumnStart: "input" }}
+          onSubmit={handleSubmit}
+        >
           <SearchField
             ref={inputEl}
             value={domainString}
-            placeholder="Add emojis or text here!"
+            placeholder={"Add emojis or text here!"}
             onChange={event => {
               handleDomainChange(event)
             }}
@@ -169,49 +137,27 @@ const App = () => {
             }
           }}
         >
-          Search
+          <span role="img" aria-label="search">
+            🔍 Search
+          </span>
         </SubmitButton>
       </Header>
 
       <EmojiContainer
-        style={{ position: "absolute", textAlign: "right" }}
         pose={expanded ? "visible" : "hidden"}
       >
-        <Picker
-          set="emojione"
-          onSelect={e => {
-            const start = inputEl.current.selectionStart
-            const end = inputEl.current.selectionEnd
-
-            setDomainString(
-              prevString =>
-                prevString.substring(0, start) +
-                e.native +
-                prevString.substring(end, prevString.length)
-            )
-
-            setDomainsArray(
-              domainEndings.map(
-                ending =>
-                  domainString.substring(0, start) +
-                  e.native +
-                  domainString.substring(end, domainString.length) +
-                  ending
-              )
-            )
-
-            inputEl.current.focus()
-
-            setTimeout(
-              () =>
-                inputEl.current.setSelectionRange(
-                  start + e.native.length,
-                  end + e.native.length
-                ),
-              10
-            )
+        <OutsideClickHandler
+          onOutsideClick={() => {
+            expanded && setExpanded(false)
           }}
-        />
+        >
+          <Picker
+            set="apple"
+            title="EmojiCatch.com"
+            emoji="mag"
+            onSelect={e => onPickerSelect(e)}
+          />
+        </OutsideClickHandler>
       </EmojiContainer>
 
       <div
@@ -221,17 +167,13 @@ const App = () => {
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "center",
-          alignContent: "start",
+          alignContent: "start"
         }}
       >
         {lookedUpDomainsArray &&
           lookedUpDomainsArray.map((domain, index) => {
             return (
-              <SingleDomain key={index}>
-                <span>
-                  {domain.url} is {domain.status}
-                </span>
-              </SingleDomain>
+              <SingleDomain key={index} domain={domain} />
             )
           })}
       </div>
