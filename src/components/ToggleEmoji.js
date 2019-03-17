@@ -5,6 +5,7 @@ const ToggleEmoji = styled.p`
   grid-row-start: toggle;
   color: white;
   text-decoration: underline;
+  font-family: 'Nunito', sans-serif;
   :hover {
     cursor: pointer;
   }
