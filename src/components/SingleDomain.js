@@ -1,15 +1,17 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React from "react"
 import styled from "styled-components"
 
 const StyledDiv = styled.div`
   display: flex;
-  border-radius: 20px;
+  border-radius: 50px;
   background: white;
   padding: 10px 20px;
   margin: 10px;
   height: max-content;
   box-shadow: 0px 0px 5px #7f28c3;
   color: white;
+  font-size: 1.5rem;
 `
 const SingleDomain = props => {
   let available = false
@@ -17,19 +19,41 @@ const SingleDomain = props => {
   props.domain.status === "undelegated inactive" && (available = true)
   props.domain.status === "inactive" && (available = true)
 
-  return (
-    <StyledDiv
-      style={{
-        background: available
-          ? "linear-gradient(200deg,#d7ffb9, #3ff23f)"
-          : "linear-gradient(220deg,#fa7676,#ff2822)",
-      }}
-    >
-      <span>
-        {props.domain.url} is {props.domain.status}
-      </span>
-    </StyledDiv>
-  )
+  let ending = props.domain.url
+    .match(/\.[^.]{2,3}(?:\.[^.]{2,3})?$/gi)
+    .toString()
+
+  if (available === true && ending === ".to") {
+    return (
+    <a style={{textDecoration: "none"}} href={`https://register.to/cart.php?a=add&domain=register&query=${props.domain.url}`} target="_blank">
+      <StyledDiv
+        style={{
+          background: available
+            ? "linear-gradient(200deg, rgb(160, 243, 114), rgb(0, 177, 2))"
+            : "linear-gradient(220deg,#fa7676,#ff2822)"
+        }}
+      >
+        
+          <span>{props.domain.url}</span>
+        
+      </StyledDiv>
+      </a>
+    )
+  } else {
+    return (
+      <a style={{textDecoration: "none"}} href={`https://${props.domain.url}`} target="_blank">
+      <StyledDiv
+        style={{
+          background: available
+            ? "linear-gradient(200deg, rgb(160, 243, 114), rgb(0, 177, 2))"
+            : "linear-gradient(220deg,#fa7676,#ff2822)"
+        }}
+      >
+        <span>{props.domain.url}</span>
+      </StyledDiv>
+      </a>
+    )
+  }
 }
 
 export default SingleDomain

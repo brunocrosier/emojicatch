@@ -12,7 +12,7 @@ import SingleDomain from "./components/SingleDomain"
 import Title from "./components/Title"
 
 const App = () => {
-  const domainEndings = [".ws", ".ga", ".cf", ".tk", ".ml", ".gq", ".st", ".fm"]
+  const domainEndings = [".ws", ".to", ".ga", ".cf", ".tk", ".ml", ".gq", ".st", ".fm"]
 
   const [domainString, setDomainString] = useState("")
   const [domainsArray, setDomainsArray] = useState([])
@@ -167,13 +167,14 @@ const App = () => {
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "center",
-          alignContent: "start"
+          alignContent: "start",
+          paddingTop: "1rem",
         }}
       >
         {lookedUpDomainsArray &&
           lookedUpDomainsArray.map((domain, index) => {
             return (
-              <SingleDomain key={index} domain={domain} />
+              <SingleDomain key={index} domain={domain}/>
             )
           })}
       </div>

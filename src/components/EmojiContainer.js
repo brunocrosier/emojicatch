@@ -25,6 +25,9 @@ const EmojiContainer = styled(UnstyledEmojiContainer)`
   grid-row-start: 2;
   grid-column-start: 1;
   grid-column-end: 2;
+  width: 338px;
+  justify-self: end;
+  padding-top: 1rem;
 `
 
 export default EmojiContainer
