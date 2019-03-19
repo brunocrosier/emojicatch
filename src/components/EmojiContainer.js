@@ -21,12 +21,9 @@ const UnstyledEmojiContainer = posed.div({
 })
 
 const EmojiContainer = styled(UnstyledEmojiContainer)`
-  position: relative;
-  grid-row-start: 2;
-  grid-column-start: 1;
-  grid-column-end: 2;
+  position: absolute;
   width: 338px;
-  justify-self: end;
+  right: 0px;
   padding-top: 1rem;
 `
 

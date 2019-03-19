@@ -107,7 +107,7 @@ const App = () => {
             setLookedUpDomainsArray([])
           }}
         >
-          Emoji Domain Search
+          emoji domain search
         </Title>
         <ToggleEmoji
           onClick={event => {
@@ -115,36 +115,21 @@ const App = () => {
             onButtonClick(event)
           }}
         >
-          Open Emoji Picker
+          open emoji picker
         </ToggleEmoji>
         <form
-          style={{ outline: "transparent", gridColumnStart: "input" }}
+          style={{ position: "relative", outline: "transparent", gridColumnStart: "input" }}
           onSubmit={handleSubmit}
         >
           <SearchField
             ref={inputEl}
             value={domainString}
-            placeholder={"Add emojis or text here!"}
+            placeholder={"add emojis or text here!"}
             onChange={event => {
               handleDomainChange(event)
             }}
           />
-        </form>
-        <SubmitButton
-          onClick={() => {
-            buttonHandleSubmit()
-            if (expanded) {
-              setExpanded(!expanded)
-            }
-          }}
-        >
-          <span role="img" aria-label="search">
-            🔍 Search
-          </span>
-        </SubmitButton>
-      </Header>
-
-      <EmojiContainer
+          <EmojiContainer
         pose={expanded ? "visible" : "hidden"}
       >
         <OutsideClickHandler
@@ -161,6 +146,22 @@ const App = () => {
           />
         </OutsideClickHandler>
       </EmojiContainer>
+        </form>
+        <SubmitButton
+          onClick={() => {
+            buttonHandleSubmit()
+            if (expanded) {
+              setExpanded(!expanded)
+            }
+          }}
+        >
+          <span role="img" aria-label="search">
+            🔍 search
+          </span>
+        </SubmitButton>
+      </Header>
+
+      
 
       <div
         style={{

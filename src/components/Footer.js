@@ -1,17 +1,23 @@
 import React from "react"
 import styled from "styled-components"
 
-
 const StyledFooter = styled.p`
-  color: purple;
-  font-size: 50px;
+  color: white;
+  font-size: 1.3rem;
   font-family: Josefin Sans;
-  font-weight: 700;
+  font-weight: 400;
   justify-self: center;
+  background: linear-gradient(30deg, #914dad, #b59bdb);
+  border-radius: 2rem;
+  padding: 0.5rem 2rem;
+  a {
+    color: white;
+    font-weight: 600;
+  }
 `
 
 const Footer = () => {
-  return <StyledFooter>Made with ☕ & 🥐 by @brunezy</StyledFooter>
+  return <StyledFooter>made with ☕ & 🥐 by <a href="https://twitter.com/bruno_crosier">@bruno_crosier</a></StyledFooter>
 }
 
 export default Footer

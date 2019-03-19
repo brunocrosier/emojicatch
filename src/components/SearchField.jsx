@@ -9,7 +9,7 @@ const SearchField = styled.input`
   text-align: center;
   border: 0px;
   padding: 0px;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
   box-shadow: 0px 0px 10px pink;
   transition: 0.5s;
   outline: transparent;
