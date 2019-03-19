@@ -4,7 +4,7 @@ const SearchField = styled.input`
   border-radius: 50px 0px 0px 50px;
   width: 100%;
   min-height: 70px;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 2.4rem;
   text-align: center;
   border: 0px;

@@ -6,7 +6,8 @@ const Title = styled.h1`
   text-align: center;
   grid-column-start: input;
   grid-column-end: 3;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
   font-size: 3rem;
   :hover {
     cursor: pointer;

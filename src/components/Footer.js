@@ -4,7 +4,7 @@ import styled from "styled-components"
 const StyledFooter = styled.p`
   color: white;
   font-size: 1.3rem;
-  font-family: Josefin Sans;
+  font-family: Montserrat;
   font-weight: 400;
   justify-self: center;
   background: linear-gradient(30deg, #914dad, #b59bdb);

@@ -10,6 +10,8 @@ const StyledDiv = styled.div`
   height: max-content;
   box-shadow: 0px 0px 2px #7f28c3;
   color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
   font-size: 1.5rem;
   /* transition: 0.5s; */
   :hover {
@@ -28,7 +30,7 @@ const SingleDomain = props => {
 
   if (available === true && ending === ".to") {
     return (
-    <a style={{textDecoration: "none"}} href={`https://register.to/cart.php?a=add&domain=register&query=${props.domain.url}`} target="_blank">
+    <a style={{textDecoration: "none"}} href={`https://register.to/cart.php?a=add&domain=register&query=${props.domain.url}`} target="_blank" rel="noopener noreferrer">
       <StyledDiv
         style={{
           background: available
