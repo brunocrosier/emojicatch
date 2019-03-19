@@ -10,6 +10,7 @@ import SubmitButton from "./components/SubmitButton"
 import EmojiContainer from "./components/EmojiContainer"
 import SingleDomain from "./components/SingleDomain"
 import Title from "./components/Title"
+import Footer from './components/Footer'
 
 const App = () => {
   const domainEndings = [".ws", ".to", ".ga", ".cf", ".tk", ".ml", ".gq", ".st", ".fm"]
@@ -156,6 +157,7 @@ const App = () => {
             title="EmojiCatch.com"
             emoji="mag"
             onSelect={e => onPickerSelect(e)}
+            exclude="recent"
           />
         </OutsideClickHandler>
       </EmojiContainer>
@@ -178,6 +180,7 @@ const App = () => {
             )
           })}
       </div>
+      <Footer />
     </GridStyled>
   )
 }

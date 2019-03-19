@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-target-blank */
 import React from "react"
 import styled from "styled-components"
 
@@ -9,9 +8,13 @@ const StyledDiv = styled.div`
   padding: 10px 20px;
   margin: 10px;
   height: max-content;
-  box-shadow: 0px 0px 5px #7f28c3;
+  box-shadow: 0px 0px 2px #7f28c3;
   color: white;
   font-size: 1.5rem;
+  /* transition: 0.5s; */
+  :hover {
+    box-shadow: 0px 0px 10px #7f28c3;
+  }
 `
 const SingleDomain = props => {
   let available = false
@@ -41,7 +44,7 @@ const SingleDomain = props => {
     )
   } else {
     return (
-      <a style={{textDecoration: "none"}} href={`https://${props.domain.url}`} target="_blank">
+      <a style={{textDecoration: "none"}} href={`http://${props.domain.url}`} target="_blank" rel="noopener noreferrer" >
       <StyledDiv
         style={{
           background: available

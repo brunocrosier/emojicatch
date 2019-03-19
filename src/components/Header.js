@@ -2,6 +2,7 @@ import styled from "styled-components"
 
 const Header = styled.div`
   display: grid;
+  background: linear-gradient(30deg, #914dad, #b59bdb);
   grid-template-columns: [input] 1fr [searchbutton] min-content;
   grid-template-rows: [h1] max-content [toggle] max-content [search] max-content;
   @media (max-width: 768px) {

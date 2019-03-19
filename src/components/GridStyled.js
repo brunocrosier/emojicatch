@@ -1,12 +1,11 @@
 import styled from "styled-components"
 
 const GridStyled = styled.div`
-  background: linear-gradient(30deg, #914dad, #b59bdb);
+  background: linear-gradient(30deg, #eeeeee, #dddddd);
   min-height: 100vh;
   display: grid;
-  padding: 0vw 4vw;
   grid-template-columns: [main] 1fr;
-  grid-template-rows: [top] minmax(30vh, 1fr) [domainresults] 2fr;
+  grid-template-rows: [top] minmax(min-content,max-content) [domainresults] 1fr [footer] minmax(min-content,max-content);
   overflow: hidden;
 `
 
