@@ -10,6 +10,8 @@ const StyledFooter = styled.p`
   background: linear-gradient(30deg, #914dad, #b59bdb);
   border-radius: 2rem;
   padding: 0.5rem 2rem;
+  margin: 0px 2rem;
+  text-align: center;
   a {
     color: white;
     font-weight: 600;
@@ -17,7 +19,12 @@ const StyledFooter = styled.p`
 `
 
 const Footer = () => {
-  return <StyledFooter>made with ☕ & 🥐 by <a href="https://twitter.com/bruno_crosier">@bruno_crosier</a></StyledFooter>
+  return (
+    <StyledFooter>
+      made with ☕ & 🥐 by{" "}
+      <a href="https://twitter.com/bruno_crosier">@bruno_crosier</a>
+    </StyledFooter>
+  )
 }
 
 export default Footer

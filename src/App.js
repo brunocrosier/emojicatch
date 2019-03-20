@@ -13,7 +13,7 @@ import Title from "./components/Title"
 import Footer from './components/Footer'
 
 const App = () => {
-  const domainEndings = [".ws", ".to", ".ga", ".cf", ".tk", ".ml", ".gq", ".st", ".fm"]
+  const domainEndings = [".ws", ".to", ".ga", ".cf", ".tk", ".ml", ".gq", ".st", ".fm", ".je", ".gg"]
 
   const [domainString, setDomainString] = useState("")
   const [domainsArray, setDomainsArray] = useState([])
@@ -106,9 +106,8 @@ const App = () => {
             setDomainsArray([])
             setLookedUpDomainsArray([])
           }}
-        >
-          emoji domain search
-        </Title>
+          src="/emojicatch-logo.png" alt="emojicatch logo"
+        />
         <ToggleEmoji
           onClick={event => {
             setExpanded(!expanded)
