@@ -137,7 +137,7 @@ const App = () => {
           }}
         >
           <Picker
-            set="apple"
+            set="native"
             title="EmojiCatch.com"
             emoji="mag"
             onSelect={e => onPickerSelect(e)}
