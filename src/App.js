@@ -140,7 +140,7 @@ const App = () => {
             set="native"
             title="EmojiCatch.com"
             emoji="mag"
-            onSelect={e => onPickerSelect(e)}
+            onClick={e => onPickerSelect(e)}
             exclude="recent"
           />
         </OutsideClickHandler>
