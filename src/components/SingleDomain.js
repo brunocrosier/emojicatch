@@ -10,7 +10,7 @@ const StyledDiv = styled.div`
   height: max-content;
   box-shadow: 0px 0px 2px #7f28c3;
   color: white;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'sofia-pro', sans-serif;
   font-weight: 900;
   font-size: 1.5rem;
   /* transition: 0.5s; */

@@ -106,7 +106,7 @@ const App = () => {
             setDomainsArray([])
             setLookedUpDomainsArray([])
           }}
-          src="/emojicatch-logo.png" alt="emojicatch logo"
+          src="/emoji-catch-logo.svg" alt="emojicatch logo"
         />
         <ToggleEmoji
           onClick={event => {

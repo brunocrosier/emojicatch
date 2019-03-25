@@ -7,7 +7,7 @@ const SubmitButton = styled.button`
   border: 0px;
   background: linear-gradient(20deg, #ea2988, #ff72bf);
   color: white;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'sofia-pro', sans-serif;
   font-size: 2.4rem;
   font-weight: 700;
   border-radius: 0px 50px 50px 0px;
