@@ -137,9 +137,10 @@ const App = () => {
           }}
         >
           <Picker
-            set="native"
+            set="apple"
             title="EmojiCatch.com"
             emoji="mag"
+            sheetSize={32}
             onClick={e => onPickerSelect(e)}
             exclude="recent"
           />
