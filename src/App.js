@@ -32,20 +32,34 @@ const App = () => {
   }
 
   const runDomainLookup = fullUrl => {
+    // return fetch(
+    //   `https://domainr.p.rapidapi.com/v2/status?domain=${fullUrl}&mashape-key=2ddd8493aemsh9c8c14d07283191p1bf80ajsn8c5449b7f056`
+    // )
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     setLookedUpDomainsArray(prevArray => [
+    //       ...prevArray,
+    //       {
+    //         url: data.status[0].domain,
+    //         status: data.status[0].status
+    //       }
+    //     ])
+    //   })
+
     return fetch(
-      `https://domainr.p.rapidapi.com/v2/status?domain=${fullUrl}&mashape-key=2ddd8493aemsh9c8c14d07283191p1bf80ajsn8c5449b7f056`
+      `http://localhost:3001/lookup/${fullUrl}`
     )
       .then(res => res.json())
       .then(data => {
         setLookedUpDomainsArray(prevArray => [
           ...prevArray,
           {
-            url: data.status[0].domain,
-            status: data.status[0].status
+            url: data.url,
+            status: data.status
           }
         ])
       })
-  }
+  } 
 
   const handleSubmit = e => {
     e.preventDefault()

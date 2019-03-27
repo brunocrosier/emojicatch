@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 const GridStyled = styled.div`
-  background: linear-gradient(30deg, #eeeeee, #dddddd);
+  background: radial-gradient(#eeeeee, #dddddd);
   min-height: 100vh;
   display: grid;
   grid-template-columns: [main] 1fr;

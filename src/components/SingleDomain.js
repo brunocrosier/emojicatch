@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import punycode from 'punycode'
 
 const StyledDiv = styled.div`
   display: flex;
@@ -21,8 +22,7 @@ const StyledDiv = styled.div`
 const SingleDomain = props => {
   let available = false
 
-  props.domain.status === "undelegated inactive" && (available = true)
-  props.domain.status === "inactive" && (available = true)
+  props.domain.status === "available" && (available = true)
 
   let ending = props.domain.url
     .match(/\.[^.]{2,3}(?:\.[^.]{2,3})?$/gi)
@@ -39,7 +39,7 @@ const SingleDomain = props => {
         }}
       >
         
-          <span>{props.domain.url}</span>
+          <span>{punycode.toUnicode(props.domain.url)}</span>
         
       </StyledDiv>
       </a>
@@ -54,7 +54,7 @@ const SingleDomain = props => {
             : "linear-gradient(220deg,#fa7676,#ff2822)"
         }}
       >
-        <span>{props.domain.url}</span>
+        <span>{punycode.toUnicode(props.domain.url)}</span>
       </StyledDiv>
       </a>
     )

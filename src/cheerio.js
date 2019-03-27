@@ -3,11 +3,17 @@ const axios = require("axios")
 const punycode = require("punycode")
 const express = require("express")
 const fetch = require("node-fetch")
-const port = process.env.PORT || 5000
+const port = 3001
 
 const app = express()
 
 app.use(express.json())
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.get("/lookup/:domain", (req, res) => {
   const myDomain = punycode.toASCII(req.params.domain)
@@ -22,8 +28,8 @@ app.get("/lookup/:domain", (req, res) => {
           const $ = cheerio.load(html)
           $(".domain-status").each(function(i, e) {
             res.json({
-              domain: domainString,
-              availability: $(e)
+              url: domainString,
+              status: $(e)
                 .text()
                 .trim()
                 .toLowerCase()
@@ -40,8 +46,8 @@ app.get("/lookup/:domain", (req, res) => {
     .then(res => res.json())
     .then(data => {
       res.json({
-        domain: domainString,
-        availability: data.domain[0].status.toLowerCase()
+        url: domainString,
+        status: data.domain[0].status.toLowerCase()
       })
     })
   }
@@ -51,9 +57,10 @@ app.get("/lookup/:domain", (req, res) => {
     freenomLookup(myDomain)
   }
 
-  if (ending === ".ws" || ".to") {
+  if (ending === ".ws" || ".to" ) {
     domainrLookupScrape(myDomain)
   }
+
 
 
 })
