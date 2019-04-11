@@ -42,7 +42,7 @@ app.get("/lookup/:domain", (req, res) => {
   }
 
   const freenomLookup = domainString => {
-    fetch(`https://api.freenom.com/v2/domain/search?domainname=${domainString}&email=bruno.crosier@gmail.com&password=nnib45ms&domaintype=FREE`)
+    fetch(`https://api.freenom.com/v2/domain/search?domainname=${domainString}&email=bruno.crosier@gmail.com&password=nnib45ms&domaintype=PAID`)
     .then(res => res.json())
     .then(data => {
       res.json({

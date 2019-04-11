@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@loadable/component": "^5.7.0",
     "axios": "^0.18.0",
     "babel-runtime": "6.26.0",
     "cheerio": "^1.0.0-rc.2",

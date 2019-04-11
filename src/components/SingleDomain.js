@@ -20,7 +20,7 @@ const StyledDiv = styled.div`
   }
 `
 const SingleDomain = props => {
-  let available = false
+  let available = null
 
   props.domain.status === "available" && (available = true)
 
