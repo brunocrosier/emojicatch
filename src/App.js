@@ -46,7 +46,7 @@ const App = () => {
   }
 
   const runDomainLookup = fullUrl => {
-    return fetch(`${window.location.origin}:3001/lookup/${fullUrl}`)
+    return fetch(`https://now-express-example.brunocrosier.now.sh/lookup/${fullUrl}`)
       .then(res => res.json())
       .then(data => {
         setLookedUpDomainsArray(prevArray => [
@@ -164,7 +164,7 @@ const App = () => {
           }}
         >
           <span role="img" aria-label="search">
-            🔍 search
+            search
           </span>
         </SubmitButton>
       </Header>
