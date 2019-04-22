@@ -8,9 +8,9 @@ import GridStyled from "./components/GridStyled"
 import Header from "./components/Header"
 import SubmitButton from "./components/SubmitButton"
 import EmojiContainer from "./components/EmojiContainer"
-import SingleDomain from "./components/SingleDomain"
-import Title from "./components/Title"
+import Logo from "./components/Logo"
 import Footer from "./components/Footer"
+import DomainResults from "./components/DomainResults"
 
 const EmojiPicker = loadable(() => import("./components/EmojiPicker"))
 
@@ -38,7 +38,7 @@ const App = () => {
     document.title = domainString
   })
 
-  const handleDomainChange = event => {
+  const handleDomainInputChange = event => {
     setDomainString(event.target.value)
     setDomainsArray(
       domainEndings.map(ending => event.target.value.trim() + ending)
@@ -72,9 +72,6 @@ const App = () => {
 
   const inputEl = React.useRef(null)
 
-  const onButtonClick = event => {
-    inputEl.current.focus()
-  }
 
   const onPickerSelect = e => {
     const start = inputEl.current.selectionStart
@@ -97,8 +94,6 @@ const App = () => {
       )
     )
 
-    inputEl.current.focus()
-
     setTimeout(
       () =>
         inputEl.current.setSelectionRange(
@@ -109,10 +104,11 @@ const App = () => {
     )
   }
 
+
   return (
     <GridStyled>
       <Header>
-        <Title
+        <Logo
           onClick={() => {
             setDomainString("")
             setDomainsArray([])
@@ -124,7 +120,6 @@ const App = () => {
         <ToggleEmoji
           onClick={event => {
             setExpanded(!expanded)
-            onButtonClick(event)
           }}
         >
           open emoji picker
@@ -142,7 +137,7 @@ const App = () => {
             value={domainString}
             placeholder={"add emojis or text here!"}
             onChange={event => {
-              handleDomainChange(event)
+              handleDomainInputChange(event)
             }}
           />
           <EmojiContainer pose={expanded ? "visible" : "hidden"}>
@@ -169,22 +164,10 @@ const App = () => {
         </SubmitButton>
       </Header>
 
-      <div
-        style={{
-          gridColumnStart: "main",
-          gridRowStart: "domainresults",
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          alignContent: "start",
-          paddingTop: "1rem"
-        }}
-      >
-        {lookedUpDomainsArray &&
-          lookedUpDomainsArray.map((domain, index) => {
-            return <SingleDomain key={index} domain={domain} />
-          })}
-      </div>
+      <DomainResults
+        lookedUpDomainsArray={lookedUpDomainsArray}
+      />
+        
       <Footer />
     </GridStyled>
   )

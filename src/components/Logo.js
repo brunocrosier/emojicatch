@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-const Title = styled.img`
+const Logo = styled.img`
   max-width: 25vw;
   justify-self: center;
   :hover {
@@ -12,4 +12,4 @@ const Title = styled.img`
   }
 `
 
-export default Title
+export default Logo
