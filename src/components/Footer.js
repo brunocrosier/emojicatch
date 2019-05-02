@@ -10,7 +10,6 @@ const StyledFooter = styled.div`
   font-weight: 400;
   justify-self: center;
   background: linear-gradient(30deg, #914dad, #b59bdb);
-  border-radius: 2rem;
   padding: 0.5rem 2rem;
   text-align: center;
   margin-bottom: 0;

@@ -1,5 +1,6 @@
 {
     "version": 2,
+    "alias": "emojicatch.com",
     "name": "emojicatch",
     "builds": [{
         "src": "package.json",
@@ -7,8 +8,15 @@
         "config": {
             "distDir": "build"
         }
+    }, {
+        "src": "/api/server.js",
+        "use": "@now/node"
     }],
     "routes": [{
+            "src": "/lookup/.*",
+            "dest": "/api/server.js"
+        },
+        {
             "src": "/(.*)",
             "dest": "/index.js"
         },

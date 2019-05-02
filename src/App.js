@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react"
 import SearchField from "./components/SearchField"
 import "emoji-mart/css/emoji-mart.css"
-import loadable from "@loadable/component"
-import OutsideClickHandler from "react-outside-click-handler"
 import ToggleEmoji from "./components/ToggleEmoji"
 import GridStyled from "./components/GridStyled"
 import Header from "./components/Header"
-import SubmitButton from "./components/SubmitButton"
-import EmojiContainer from "./components/EmojiContainer"
 import Logo from "./components/Logo"
 import Footer from "./components/Footer"
 import DomainResults from "./components/DomainResults"
-
-const EmojiPicker = loadable(() => import("./components/EmojiPicker"))
+import EmojiPicker from "./components/EmojiPicker"
+import Modal from "@material-ui/core/Modal"
 
 const App = () => {
   const domainEndings = [
@@ -23,61 +19,34 @@ const App = () => {
     ".tk",
     ".ml",
     ".gq",
-    ".st",
-    ".fm",
-    ".je",
-    ".gg"
+    // ".st",
+    ".fm"
+    // ".je",
+    // ".gg"
   ]
 
-  const [domainString, setDomainString] = useState("")
+  // Define our state and how to update it
+  const [domainInputString, setdomainInputString] = useState("")
   const [domainsArray, setDomainsArray] = useState([])
   const [lookedUpDomainsArray, setLookedUpDomainsArray] = useState([])
   const [expanded, setExpanded] = useState(false)
 
-  useEffect(() => {
-    document.title = domainString
-  })
-
-  const handleDomainInputChange = event => {
-    setDomainString(event.target.value)
-    setDomainsArray(
-      domainEndings.map(ending => event.target.value.trim() + ending)
-    )
-  }
-
-  const runDomainLookup = fullUrl => {
-    return fetch(`https://now-express-example.brunocrosier.now.sh/lookup/${fullUrl}`)
-      .then(res => res.json())
-      .then(data => {
-        setLookedUpDomainsArray(prevArray => [
-          ...prevArray,
-          {
-            url: data.url,
-            status: data.status
-          }
-        ])
-      })
-  }
-
-  const handleSubmit = e => {
-    e.preventDefault()
-    setLookedUpDomainsArray([])
-    domainsArray.map(b => runDomainLookup(b))
-  }
-
-  const buttonHandleSubmit = e => {
-    setLookedUpDomainsArray([])
-    domainsArray.map(b => runDomainLookup(b))
-  }
+  // // Every time the domainInputString changes, change the document.title
+  // useEffect(() => {
+  //   document.title = domainInputString
+  // }, [domainInputString])
 
   const inputEl = React.useRef(null)
 
-
+  // What happens when an emoji is selected from the picker
   const onPickerSelect = e => {
+    // Close the picker modal
+    setExpanded(false)
+
     const start = inputEl.current.selectionStart
     const end = inputEl.current.selectionEnd
 
-    setDomainString(
+    setdomainInputString(
       prevString =>
         prevString.substring(0, start) +
         e.native +
@@ -87,87 +56,84 @@ const App = () => {
     setDomainsArray(
       domainEndings.map(
         ending =>
-          domainString.substring(0, start) +
+          domainInputString.substring(0, start) +
           e.native +
-          domainString.substring(end, domainString.length) +
+          domainInputString.substring(end, domainInputString.length) +
           ending
       )
     )
 
-    setTimeout(
-      () =>
-        inputEl.current.setSelectionRange(
-          start + e.native.length,
-          end + e.native.length
-        ),
-      10
+    inputEl.current.setSelectionRange(
+      start + e.native.length,
+      end + e.native.length
     )
   }
 
+  // What happens when the input field's value changes
+  const onChange = e => {
+    setdomainInputString(e.target.value)
+
+    setDomainsArray(domainEndings.map(ending => e.target.value.trim() + ending))
+  }
 
   return (
     <GridStyled>
       <Header>
         <Logo
           onClick={() => {
-            setDomainString("")
+            setdomainInputString("")
             setDomainsArray([])
             setLookedUpDomainsArray([])
           }}
           src="/emoji-catch-logo.svg"
           alt="emojicatch logo"
         />
+        <form
+          style={{
+            position: "relative",
+            outline: "transparent",
+            gridColumn: "1/6",
+            gridRow: "2"
+          }}
+          onSubmit={e => e.preventDefault()}
+        >
+          <SearchField
+            ref={inputEl}
+            value={domainInputString}
+            placeholder={"add emojis or text here!"}
+            onChange={onChange}
+          />
+
+          <Modal open={expanded} onClose={() => setExpanded(false)}>
+            <div
+              style={{
+                outline: "none",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                position: "absolute"
+              }}
+            >
+              <EmojiPicker onPickerSelect={onPickerSelect} />
+            </div>
+          </Modal>
+        </form>
         <ToggleEmoji
           onClick={event => {
             setExpanded(!expanded)
           }}
         >
-          open emoji picker
+          <p>emoji picker</p>
         </ToggleEmoji>
-        <form
-          style={{
-            position: "relative",
-            outline: "transparent",
-            gridColumnStart: "input"
-          }}
-          onSubmit={handleSubmit}
-        >
-          <SearchField
-            ref={inputEl}
-            value={domainString}
-            placeholder={"add emojis or text here!"}
-            onChange={event => {
-              handleDomainInputChange(event)
-            }}
-          />
-          <EmojiContainer pose={expanded ? "visible" : "hidden"}>
-            <OutsideClickHandler
-              onOutsideClick={() => {
-                expanded && setExpanded(false)
-              }}
-            >
-              <EmojiPicker onPickerSelect={onPickerSelect} />
-            </OutsideClickHandler>
-          </EmojiContainer>
-        </form>
-        <SubmitButton
-          onClick={() => {
-            buttonHandleSubmit()
-            if (expanded) {
-              setExpanded(!expanded)
-            }
-          }}
-        >
-          <span role="img" aria-label="search">
-            search
-          </span>
-        </SubmitButton>
       </Header>
 
       <DomainResults
+        domainInputString={domainInputString}
+        domainEndings={domainEndings}
         lookedUpDomainsArray={lookedUpDomainsArray}
+        domainsArray={domainsArray}
       />
-        
+
       <Footer />
     </GridStyled>
   )

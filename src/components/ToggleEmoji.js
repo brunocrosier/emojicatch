@@ -1,13 +1,20 @@
 import styled from "styled-components"
 
-const ToggleEmoji = styled.p`
-  text-align: right;
-  grid-row-start: toggle;
+const ToggleEmoji = styled.button`
+  background: #ff568b;
+  text-align: center;
+  grid-row-start: 2;
+  grid-column: 6/8;
   color: white;
-  text-decoration: underline;
-  font-family: 'sofia-pro', sans-serif;
+  font-family: "sofia-pro", sans-serif;
+  border: 0px;
+  border-radius: 0px 50px 50px 0px;
+  outline: none;
   :hover {
     cursor: pointer;
+  }
+  p {
+    text-decoration: none;
   }
 `
 

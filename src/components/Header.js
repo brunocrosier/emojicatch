@@ -1,19 +1,35 @@
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
+
+const theAnim = keyframes`
+0% {
+    filter: hue-rotate(0deg);
+}
+100% {
+    filter: hue-rotate(360deg);
+}
+`
+
+const pulse = keyframes`
+    0% {
+      background-size: 100% 100%;
+  }
+  100% {
+    background-size: 150% 100%;
+  }
+`
 
 const Header = styled.div`
   display: grid;
-  background: radial-gradient(#b59bdb, #914dad);
-  grid-template-columns: [input] 1fr [searchbutton] min-content;
-  grid-template-rows: [h1] max-content [toggle] max-content [search] max-content;
+  grid-row-gap: 1rem;
+  background: linear-gradient(30deg,#f5afd6,#914dad);
   box-shadow: 0px 0px 15px #63207f;
   padding: 2rem 10vw;
+  animation: ${pulse} 1.2s ease-in-out infinite alternate both;
   @media (max-width: 768px) {
     form {
       grid-column: 1/3;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
     }
-    padding: 2rem;
+    padding: 1rem;
   }
 `
 
