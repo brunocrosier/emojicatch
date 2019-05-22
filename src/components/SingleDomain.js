@@ -65,7 +65,7 @@ const enterAnim = keyframes`
   }
 
   60% {
-    opacity: 1;
+    opacity: ${props => props.opacity};
     transform: scale3d(1.03, 1.03, 1.03);
   }
 
@@ -74,7 +74,7 @@ const enterAnim = keyframes`
   }
 
   to {
-    opacity: 1;
+    opacity: ${props => props.opacity};
     transform: scale3d(1, 1, 1);
   }
 }
@@ -84,6 +84,7 @@ const StyledA = styled.a`
   display: flex;
   border-radius: 50px;
   background: ${props => props.background};
+  opacity: ${props => props.opacity};
   padding: 10px 20px;
   margin: 10px;
   height: max-content;
@@ -121,14 +122,17 @@ const SingleDomain = props => {
   })
 
   let background
+  let opacity = 1
 
   if (isAvailable) {
-    background = "linear-gradient(200deg, rgb(160, 243, 114), rgb(0, 177, 2))"
+    background = "linear-gradient(30deg, rgb(255, 73, 224), rgb(10, 255, 255))"
   } else if (isLoading) {
     background = "linear-gradient(200deg,#7427b0,#00BCD4)"
   } else {
     background = "linear-gradient(220deg,#fa7676,#ff2822)"
+    opacity = 0.3
   }
+
 
   if (isLoading) {
     return (
@@ -142,6 +146,7 @@ const SingleDomain = props => {
     return (
       <StyledA
         background={background}
+        opacity={opacity}
         href={`http://${props.domain}`}
         target="_blank"
         rel="noopener noreferrer"
@@ -151,37 +156,6 @@ const SingleDomain = props => {
     )
   }
 
-  // if (available === true && ending === ".to") {
-  //   return (
-  //   <a style={{textDecoration: "none"}} href={`https://register.to/cart.php?a=add&domain=register&query=${props.domain.url}`} target="_blank" rel="noopener noreferrer">
-  //     <StyledDiv
-  //       style={{
-  //         background: available
-  //           ? "linear-gradient(200deg, rgb(160, 243, 114), rgb(0, 177, 2))"
-  //           : "linear-gradient(220deg,#fa7676,#ff2822)"
-  //       }}
-  //     >
-
-  //         <span>{punycode.toUnicode(props.domain.url)}</span>
-
-  //     </StyledDiv>
-  //     </a>
-  //   )
-  // } else {
-  //   return (
-  //     <a style={{textDecoration: "none"}} href={`http://${props.domain.url}`} target="_blank" rel="noopener noreferrer" >
-  //     <StyledDiv
-  //       style={{
-  //         background: available
-  //           ? "linear-gradient(200deg, rgb(160, 243, 114), rgb(0, 177, 2))"
-  //           : "linear-gradient(220deg,#fa7676,#ff2822)"
-  //       }}
-  //     >
-  //       <span>{punycode.toUnicode(props.domain.url)}</span>
-  //     </StyledDiv>
-  //     </a>
-  //   )
-  // }
 }
 
 export default SingleDomain

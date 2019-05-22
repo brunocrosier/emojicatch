@@ -6,7 +6,8 @@ const ToggleEmoji = styled.button`
   grid-row-start: 2;
   grid-column: 6/8;
   color: white;
-  font-family: "sofia-pro", sans-serif;
+  font-family: 'AirbnbCereal-ExtraBold', sans-serif;
+  font-size: 1rem;
   border: 0px;
   border-radius: 0px 50px 50px 0px;
   outline: none;

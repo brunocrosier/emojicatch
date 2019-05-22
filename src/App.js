@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import SearchField from "./components/SearchField"
 import "emoji-mart/css/emoji-mart.css"
 import ToggleEmoji from "./components/ToggleEmoji"
 import GridStyled from "./components/GridStyled"
 import Header from "./components/Header"
 import Logo from "./components/Logo"
-import Footer from "./components/Footer"
+// import Footer from "./components/Footer"
 import DomainResults from "./components/DomainResults"
 import EmojiPicker from "./components/EmojiPicker"
 import Modal from "@material-ui/core/Modal"
@@ -19,10 +19,15 @@ const App = () => {
     ".tk",
     ".ml",
     ".gq",
-    // ".st",
-    ".fm"
-    // ".je",
-    // ".gg"
+    ".st",
+    ".fm",
+    ".je",
+    ".gg",
+    ".radio.am",
+    ".radio.fm",
+    ".kz",
+    ".com.kz",
+    ".org.kz"
   ]
 
   // Define our state and how to update it
@@ -134,7 +139,7 @@ const App = () => {
         domainsArray={domainsArray}
       />
 
-      <Footer />
+      {/* <Footer /> */}
     </GridStyled>
   )
 }

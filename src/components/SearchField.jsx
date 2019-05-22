@@ -5,7 +5,7 @@ const SearchField = styled.input`
   width: 100%;
   grid-column-start: 1;
   min-height: 70px;
-  font-family: 'sofia-pro', sans-serif;
+  font-family: 'AirbnbCereal-Book', sans-serif;
   font-size: 2.4rem;
   text-align: center;
   border: 0px;
