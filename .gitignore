@@ -2,7 +2,7 @@
 
 
 #api
-/api
+/api**
 
 # dependencies
 /node_modules
@@ -14,7 +14,7 @@
 
 # production
 /build
-/api
+/api/**
 
 # misc
 .DS_Store
